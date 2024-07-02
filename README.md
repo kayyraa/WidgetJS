@@ -17,7 +17,7 @@ WidgetJS is a powerful and flexible JavaScript library designed to simplify the 
 - **Flexible Classes and Ids**: Easily manage widget styles and behaviors.
 
 ## Usage
-- ```js
+```js
   import Widget from "Widget.js";
 
   const WidgetInstance = new Widget(
@@ -27,9 +27,10 @@ WidgetJS is a powerful and flexible JavaScript library designed to simplify the 
     "Example Title" // Title
   );
   Widget.Show();
+```
 
 ## Examples
-- ```js
+```js
   import Widget from "Widget.js";
 
   const WidgetInstance = new Widget(
@@ -44,9 +45,11 @@ WidgetJS is a powerful and flexible JavaScript library designed to simplify the 
   const ExampleAddition = document.createElement("span");
   ExampleAddition.innerHTML = "Test";
   WidgetObject.appendChild(ExampleAddition);
+```
 
 ## API Documentation
 ### Importing
+
 ```js
 import Widget from "Widget.js";
 ```
