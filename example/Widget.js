@@ -1,9 +1,9 @@
 export default class Widget {
-    constructor(Id = "", X = 0, Y = 0, Title = "") {
+    constructor(Id = "", Title = "", X = 0, Y = 0) {
         this.Id = Id;
+        this.Title = Title;
         this.X = X;
         this.Y = Y;
-        this.Title = Title;
     }
 
     static Show(Widget) {
@@ -13,9 +13,10 @@ export default class Widget {
         Object.style.position = "absolute";
         Object.style.width = `${Widget.X}px`;
         Object.style.height = `${Widget.Y}px`;
-        Object.style.transition = "height 0.25s ease, width 0.25s ease";
+        Object.style.transition = "height 0.25s ease, width 0.25s ease, left 50ms ease, top 50ms ease";
         Object.style.backgroundColor = "rgb(137, 163, 218)";
-        Object.style.fontFamily = "Arial";
+        Object.style.fontFamily = "Montserrat";
+        Object.style.fontWeight = "bold";
         Object.className = `${Widget.Id}-OBJECT`;
         Object.id = `${Widget.Id}`;
         document.body.appendChild(Object);
@@ -34,6 +35,7 @@ export default class Widget {
         const Title = document.createElement("span");
         Title.innerHTML = Widget.Title;
         Title.style.paddingLeft = "2.5%";
+        Title.style.userSelect = "none";
         Title.style.fontSize = `${Widget.X / 4.5}%`;
         Title.className = `${Widget.Id}-TITLE`;
         Title.id = `${Widget.Id}-TITLE`;
@@ -41,6 +43,7 @@ export default class Widget {
 
         const Close = document.createElement("span");
         Close.innerHTML = "X";
+        Close.style.userSelect = "none";
         Close.style.color = "black";
         Close.style.transition = "color 0.125s ease";
         Close.style.cursor = "pointer";
@@ -71,7 +74,7 @@ export default class Widget {
         Minimize.style.fontSize = `${Widget.X / 5}%`;
         Minimize.style.marginRight = "2.5%";
         Minimize.dataset.minimized = "false";
-        Minimize.style.userSelector = "none";
+        Minimize.style.userSelect = "none";
         Minimize.addEventListener("mouseover", () => {Minimize.style.color = "blue";});
         Minimize.addEventListener("mouseout", () => {Minimize.style.color = "black";});
         Minimize.addEventListener("click", () => {
@@ -102,14 +105,18 @@ export default class Widget {
         Topbar.addEventListener("click", function(e) {
             if (e.target === Topbar && !Dragging) {
                 Dragging = true;
+                Close.innerHTML = "◥";
+                Minimize.style.opacity = "0";
             } else if (e.target === Topbar && Dragging) {
                 Dragging = false;
+                Close.innerHTML = "X";
+                Minimize.style.opacity = "1";
             }
         });
         document.addEventListener("mousemove", function(event) {
             if (Dragging) {
                 let NewLeft = event.clientX - (Object.offsetWidth / 2);
-                let NewTop = event.clientY - 5;
+                let NewTop = event.clientY;
         
                 if (NewLeft < 0) NewLeft = 0;
                 if (NewLeft + Object.offsetWidth > window.innerWidth) NewLeft = window.innerWidth - Object.offsetWidth;
